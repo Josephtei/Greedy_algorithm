@@ -15,7 +15,7 @@ public class Mywork {
 		syndata.generateUniformData(1000,1000,5000,10000,100000); //dataset(x範圍,y範圍,餐廳,候選,人群)
 		resRtree = new RTree(2);
 		
-		
+		//
 		
 		for(Point tempP : syndata.restaurantPoint){ //現有餐廳R-tree
 			resRtree.add(tempP);

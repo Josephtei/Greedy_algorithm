@@ -123,8 +123,11 @@ public class Point extends QueueEntry{
 			if(tempRes < tempP.nnDistance){
 				distList.add(tempP.nnDistance - tempRes);
 				peoList.add(tempP);
-				nowContribution+=(tempP.nnDistance - tempRes);
+				nowContribution += (tempP.nnDistance - tempRes);
 			}
 		}
+		if(nowContribution == 0)
+			System.out.println("hi");
+		//System.out.println(nowContribution);
 	}
 }

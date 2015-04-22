@@ -47,7 +47,7 @@ public class RTree {
 			updateToRoot(nextPtr); //nextPtr做完，一路更新到root;
 		}
 		else{ //需split
-			System.out.println(123);
+			//System.out.println(123);
 			nowPtr.dataPtr[nowPtr.nowDegree] = p;
 			nowPtr.nowDegree++;
 			for(int i=0;i<(degree+1);i++)

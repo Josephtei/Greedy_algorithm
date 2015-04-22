@@ -1,6 +1,13 @@
 package myWorkP1;
 
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 
 public class Mywork {
 	
@@ -12,7 +19,9 @@ public class Mywork {
 	
 	public static void main(String[] args) {
 		syndata = new SyntheticData();
-		syndata.generateUniformData(1000,1000,5000,10000,100000); //dataset(x½d³ò,y½d³ò,À\ÆU,­Ô¿ï,¤H¸s)
+		syndata.zifData(10, 6400, 500, 500, 100, 100, 100000);
+//		syndata.normalData(0,6400,500,500,100,100,100000);
+//		syndata.generateUniformData(500,500,100,100,100000); //dataset(x½d³ò,y½d³ò,À\ÆU,­Ô¿ï,¤H¸s)
 		resRtree = new RTree(2);
 		
 		//
@@ -41,47 +50,13 @@ public class Mywork {
 		
 		answerSet = new ArrayList<Point>(); //newµª®×List
 		
-		findAnswer(512);
+		writeCandidate();
+		//findAnswer(10);
 		
 		long endTime = System.currentTimeMillis();
 		long totTime = endTime - startTime;
 		System.out.println("Using Time:" + totTime);
-		
-		
-//		for(int i=0;i<answerSet.size();i++)
-//			System.out.println(answerSet.get(i).nowContribution);
-//		for(int i = 0;i<syndata.candidateNumber;i++)
-//			System.out.println(syndata.candidatePoint[i].nowContribution);
-		//System.out.println(syndata.peoplePoint[4999].getX() + " " + syndata.peoplePoint[4999].getY() + " "+ syndata.peoplePoint[4999].nnPoint.getX() + " "+ syndata.peoplePoint[4999].nnPoint.getY() + " " + syndata.peoplePoint[4999].nnDistance);
-		
-		
-		
-//		Point p1 = new Point(5,7);
-//		p1.findNN(resRtree);
-//		System.out.println(p1.nnPoint.getX() + " " + p1.nnPoint.getY() + " " + p1.nnDistance);
-		
-			
-//		ResPoint[] resTest = new ResPoint[7];
-//		resTest[0] = setPoint(resTest[0], 1, 10);
-//		resTest[1] = setPoint(resTest[1], 6, 2);
-//		resTest[2] = setPoint(resTest[2], 4, 4);
-//		resTest[3] = setPoint(resTest[3], 8, 6);
-//		resTest[4] = setPoint(resTest[4], 2, 2);
-//		resTest[5] = setPoint(resTest[5], 1, 6);
-//		resTest[6] = setPoint(resTest[6], 5, 7);
-//
-//		for(int i = 0; i < 7; i++){
-//			si.add(resTest[i]);
-//		}
-//		
-//		Point tempP = new Point(4,3);
-//		System.out.println(tempP.findNN(si).getX() + " " + tempP.findNN(si).getY() + " " + tempP.findNN(si).distance);
-//		tempP = new Point(5,6);
-//		System.out.println(tempP.findNN(si).getX() + " " + tempP.findNN(si).getY() + " " + tempP.findNN(si).distance);
-//		
-//		System.out.println(si.root.minX + " " + si.root.minY + " " + si.root.maxX + " " + si.root.maxY);
-//		System.out.println(si.root.mbrPtr[0].minX + " " + si.root.mbrPtr[0].minY + " " + si.root.mbrPtr[0].maxX + " " + si.root.mbrPtr[0].maxY + " " );
-//		System.out.println(si.root.mbrPtr[1].minX + " " + si.root.mbrPtr[1].minY + " " + si.root.mbrPtr[1].maxX + " " + si.root.mbrPtr[1].maxY + " " );
+				
 	}
 
 	private static Point setPoint(Point p, int x, int y) {
@@ -120,5 +95,25 @@ public class Mywork {
 			}
 			maxSum = -1;
 		}
+	}
+	
+	private static void writeCandidate(){
+		int counter = 0;
+		try{
+			FileWriter fw = new FileWriter("candidateInf10.out");
+			for(Point tempP : syndata.candidatePoint){
+				fw.write(Float.toString(tempP.nowContribution));
+				for(int i = 0 ; i < tempP.peoList.size() ; i++){
+					fw.write(" " + Integer.toString(tempP.peoList.get(i).nodeID) + " " + Float.toString(tempP.distList.get(i)));
+				}
+				fw.write("\r\n");
+				counter++;
+			}
+			fw.close();
+		}
+		catch(IOException e){
+			System.out.println("IOException: " + e);
+		}
+		System.out.println(counter);
 	}
 }

@@ -72,6 +72,41 @@ public class SyntheticData {
 		//System.out.println(allPoint.size());
 	}
 	
+	
+	public void generateUniformDataV2(int xRange, int yRange, int rNum, int cNum, int pNum){
+		
+		Point temp;
+		
+		restaurantNumber = rNum;
+		candidateNumber = cNum;
+		peopleNumber = pNum;
+		
+		xBound = xRange;
+		yBound = yRange;
+		
+		restaurantPoint = new Point[rNum];
+		candidatePoint = new Point[cNum];
+		peoplePoint = new Point[pNum];
+		
+		for(int i=0;i<rNum;i++){
+			temp = new Point((float)(Math.random()*xBound),(float)(Math.random()*yBound));
+			restaurantPoint[i] = temp;
+			restaurantPoint[i].nodeID = i;
+		}
+		
+		for(int i=0;i<cNum;i++){
+			temp = new Point((float)(Math.random()*xBound),(float)(Math.random()*yBound));
+			candidatePoint[i] = temp;
+			candidatePoint[i].nodeID = i;
+		}
+		
+		for(int i=0;i<pNum;i++){
+			temp = new Point((float)(Math.random()*xBound),(float)(Math.random()*yBound));
+			peoplePoint[i] = temp;
+			peoplePoint[i].nodeID = i;
+		}
+	}
+	
 	public void normalData(double mean,double sigma2,int xRange, int yRange, int rNum, int cNum, int pNum){
 		
 		double meanArray [] = new double[2];
@@ -217,5 +252,7 @@ public class SyntheticData {
 		
 		return dataPtr;
 	}
+	
+	//public void realData(String s,)
 
 }

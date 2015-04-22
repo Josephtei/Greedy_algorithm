@@ -18,8 +18,9 @@ public class Mywork {
 	public static byte [] chooseCandidate;
 	
 	public static void main(String[] args) {
-		syndata = new SyntheticData();
-		syndata.zifData(10, 6400, 500, 500, 100, 100, 100000);
+//		syndata = new SyntheticData();
+//		syndata.generateUniformDataV2(1000,1000,1000,1000,100000);  //dataset(x½d³ò,y½d³ò,À\ÆU,­Ô¿ï,¤H¸s)
+		syndata.zifData(10, 6400, 1000, 1000, 1000, 1000, 100000);
 //		syndata.normalData(0,6400,500,500,100,100,100000);
 //		syndata.generateUniformData(500,500,100,100,100000); //dataset(x½d³ò,y½d³ò,À\ÆU,­Ô¿ï,¤H¸s)
 		resRtree = new RTree(2);
@@ -100,7 +101,7 @@ public class Mywork {
 	private static void writeCandidate(){
 		int counter = 0;
 		try{
-			FileWriter fw = new FileWriter("candidateInf10.out");
+			FileWriter fw = new FileWriter("candidateInf1.out");
 			for(Point tempP : syndata.candidatePoint){
 				fw.write(Float.toString(tempP.nowContribution));
 				for(int i = 0 ; i < tempP.peoList.size() ; i++){

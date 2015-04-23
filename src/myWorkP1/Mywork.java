@@ -18,14 +18,15 @@ public class Mywork {
 	public static byte [] chooseCandidate;
 	
 	public static void main(String[] args) {
-//		syndata = new SyntheticData();
+		syndata = new SyntheticData();
 //		syndata.generateUniformDataV2(1000,1000,1000,1000,100000);  //dataset(x範圍,y範圍,餐廳,候選,人群)
-		syndata.zifData(10, 6400, 1000, 1000, 1000, 1000, 100000);
+//		syndata.zifData(10, 6400, 1000, 1000, 1000, 1000, 100000);
 //		syndata.normalData(0,6400,500,500,100,100,100000);
 //		syndata.generateUniformData(500,500,100,100,100000); //dataset(x範圍,y範圍,餐廳,候選,人群)
+		syndata.realData("NApppoint.fnl", 24493 , "NAclpoint.fnl" , 9203);
+		
 		resRtree = new RTree(2);
 		
-		//
 		
 		for(Point tempP : syndata.restaurantPoint){ //現有餐廳R-tree
 			resRtree.add(tempP);
@@ -44,6 +45,8 @@ public class Mywork {
 		peopleDr = new float[syndata.peopleNumber]; //目前對每個people減少多少距離
 		for(int i = 0;i<syndata.peopleNumber;i++)
 			peopleDr[i] = 0;
+		
+		
 		
 		chooseCandidate = new byte[syndata.candidateNumber]; //選過的candidate設為1
 		for(int i = 0;i<syndata.candidateNumber;i++)

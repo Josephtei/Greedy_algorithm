@@ -1,9 +1,13 @@
 package myWorkP1;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.Object;
 
 import org.apache.commons.math3.distribution.MultivariateNormalDistribution;
+
 
 
 
@@ -253,6 +257,65 @@ public class SyntheticData {
 		return dataPtr;
 	}
 	
-	//public void realData(String s,)
+	public void realData(String popuName , int popuNum , String culName , int culNum){
+		
+		BufferedReader br;
+		String [] line;
+		Point temp;
+		int randomNum;
+		ArrayList <Point> culPoint = new ArrayList<Point>();
+		
+		restaurantNumber = culNum/2;
+		candidateNumber = culNum/2;
+		peopleNumber = popuNum;
+		
+		restaurantPoint = new Point[culNum/2];
+		candidatePoint = new Point[culNum/2];
+		peoplePoint = new Point[popuNum];
+		
+		System.out.println(popuName);
+		
+		try{
+			br = new BufferedReader(new FileReader(popuName));
+			while(br.ready()){
+				line = br.readLine().split("\\s:\\s");
+				
+				temp = new Point(Float.parseFloat(line[0]),Float.parseFloat(line[1]));
+				temp.nodeID = Integer.parseInt(line[2])-1;
+				peoplePoint[temp.nodeID] = temp;
+				
+			}
+			br.close();
+			
+			br = new BufferedReader(new FileReader(culName));
+			while(br.ready()){
+				line = br.readLine().split("\\s:\\s");
+				
+				temp = new Point(Float.parseFloat(line[0]),Float.parseFloat(line[1]));
+				culPoint.add(temp);
+				
+			}
+			br.close();
+		}
+		catch(IOException e){
+			System.out.println("IOException: " + e);
+		}
+		
+		for (int i = 0; i < (culNum/2); i++) { // À\ÆUdata
+			randomNum = (int) (Math.random() * (culPoint.size()));
+			restaurantPoint[i] = culPoint.get(randomNum);
+			restaurantPoint[i].nodeID = i;
+			culPoint.remove(randomNum);
+		}
+		
+		for (int i = 0; i < (culNum/2); i++) { // ­Ô¿ïdata
+			randomNum = (int) (Math.random() * (culPoint.size()));
+			candidatePoint[i] = culPoint.get(randomNum);
+			candidatePoint[i].nodeID = i;
+			culPoint.remove(randomNum);
+		}
+		
+		//System.out.println(culNum/2);
+	}
 
 }
